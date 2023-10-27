@@ -6,6 +6,7 @@ public class BancoPalavras {
 
     private String palavraAleatoria;
     public int largura, altura;
+    //Recebe como parâmetro o tamanho da tela, utilizando o código da Classe Main
     public BancoPalavras(int width, int height) {
 
         this.largura = width;
@@ -23,6 +24,7 @@ public class BancoPalavras {
 
 
         //Resolução 1920x1080 suporta palavras com até X letras
+        //Ainda não está configurado, os valores estão incorretos
         if (largura == 1920 && altura == 1080) {
             for (String animal : animais) {
                 if (animal.length() <= 100) {
@@ -32,7 +34,8 @@ public class BancoPalavras {
                 }
             }
         }
-        //Resolução 1600x900 suporta palavras com até 10 letras
+        //Resolução 1600x900 suporta palavras com até 10 letras, acima disso, a visualização fica bugada, por falta de espaço na tela.
+        //Passa por cada String da Array de Animais, e seleciona somente as palavras que contém 10 ou menos letras.
         else if (largura == 1600 && altura == 900) {
             List<String> animaisComMenosDe10Letras = new ArrayList<>();
             for (String animal : animais) {
@@ -44,7 +47,8 @@ public class BancoPalavras {
             int NumPalavraAleatoria = random.nextInt(animais.length);
             palavraAleatoria = animaisComMenosDe10Letras.get(NumPalavraAleatoria);
         }
-        //Resolução 1366x768 suporta palavras com até 8 letras
+        //Resolução 1600x900 suporta palavras com até 8 letras, acima disso, a visualização fica bugada, por falta de espaço na tela.
+        //Passa por cada String da Array de Animais, e seleciona somente as palavras que contém 8 ou menos letras.
         else if (largura == 1366 && altura == 768) {
             List<String> animaisComMenosDe8Letras = new ArrayList<>();
             for (String animal : animais) {
@@ -57,6 +61,7 @@ public class BancoPalavras {
             palavraAleatoria = animaisComMenosDe8Letras.get(NumPalavraAleatoria);
         }
     }
+    //Retorna as palavras de acordo com a resolução da tela.
     public String getPalavraAleatoria() {
         return palavraAleatoria;
     }
