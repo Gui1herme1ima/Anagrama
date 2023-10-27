@@ -11,8 +11,6 @@ public class BancoPalavras {
         this.largura = width;
         this.altura = height;
 
-        //Resolução 1920x1080 suporta palavras com até X letras
-
             String[] animais = {"LEÃO", "TIGRE", "ELEFANTE", "GIRAFA", "RINOCERONTE", "HIPOPÓTAMO",
                     "CROCODILO", "GOLFINHO", "ORCA", "ÁGUIA", "CORUJA", "GALO", "CACHORRO", "GATO", "PEIXE",
                     "TARTARUGA", "COBRA", "LAGARTO", "URSO", "LOBO", "ZEBRA", "JACARÉ", "PANDA", "RATO", "CAMELO",
@@ -24,7 +22,7 @@ public class BancoPalavras {
                     "ARARA", "ALBATROZ", "BEIJA-FLOR", "URSO-POLAR", "LAGOSTA", "MORCEGO", "POLVO", "PATO", "JAGUATIRICA"};
 
 
-        //Resolução 1600x900 suporta palavras com até 10 letras
+        //Resolução 1920x1080 suporta palavras com até X letras
         if (largura == 1920 && altura == 1080) {
             for (String animal : animais) {
                 if (animal.length() <= 100) {
