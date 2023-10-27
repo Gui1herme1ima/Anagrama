@@ -13,7 +13,7 @@ public class BancoPalavras {
 
         //Resolução 1920x1080 suporta palavras com até X letras
 
-            String[] animais = {"TESTE","LEÃO", "TIGRE", "ELEFANTE", "GIRAFA", "RINOCERONTE", "HIPOPÓTAMO",
+            String[] animais = {"LEÃO", "TIGRE", "ELEFANTE", "GIRAFA", "RINOCERONTE", "HIPOPÓTAMO",
                     "CROCODILO", "GOLFINHO", "ORCA", "ÁGUIA", "CORUJA", "GALO", "CACHORRO", "GATO", "PEIXE",
                     "TARTARUGA", "COBRA", "LAGARTO", "URSO", "LOBO", "ZEBRA", "JACARÉ", "PANDA", "RATO", "CAMELO",
                     "FOCA", "GORILA", "HIENA", "CARANGUEJO", "TUBARÃO", "POLVO", "SERPENTE", "URUBU", "BÚFALO",
