@@ -7,9 +7,16 @@ import java.io.File;
 
 public class AnagramaApp {
     public static void main(String[] args) {
+        //Garante que a Interface Screen seja atualizada de forma segura e responsiva
         SwingUtilities.invokeLater(() -> Screen());
     }
 
+    //Criação de váriaveis boolean relacionada aos botões.
+    // Não é possível criar uma unica váriavel para todos os botões, pois, na prática, se um botão fosse clicado, todos os outros reconheceriam o clique.
+    // private static boolean "X" = false -> Quando o código inicia, o botão não está clicado (false), após o clique, o valor boolean passa a ser (true), o que impede o usuário de clicar novamente no mesmo botão.
+    // private static int "X" = 0 -> Serve para contar a quantidade de vezes que a letra aparece na palavra. Inicia como 0, quando a palavra aparece pela primeira vez, adiciona 1, e por aí vai.
+    // deixei setado 4 váriaveis para cada Vogal (ou seja, suporta palaras com até 4 vogais iguais - ARARA(aceita)), 2 varíaveis para consoantes e 1 para especiais ou com acentos (Ã, Ó, Ç)
+    // caso seja necesário, é possível adicionar mais váriaves de letras. Por exemplo, uma palavra que possua 3 letras B, atualmente dará erro. Somente adicione mais uma váriavel para a letra B, seguindo o padrão.
     private static boolean botaoHifenClicado = false;
     private static int contA = 0;
     private static boolean botaoAClicado = false, botaoA2Clicado = false, botaoA3Clicado = false, botaoA4Clicado = false;
@@ -109,16 +116,13 @@ public class AnagramaApp {
         palavra.getPalavraEbaralhada();
         palavra.getArraydeCharLength();
 
-
         //JPanel
-
         DetectarResolucaoTela resolucao = new DetectarResolucaoTela(width, height);
 
         //Painel onde ficará as letras embaralhadas
         JPanel panelSuperior = Panel(0.5);
         panelSuperior.setBackground(Color.RED);
         panelSuperior.setLayout(new FlowLayout(FlowLayout.CENTER, 1, resolucao.LayoutPanelSuperior()));
-
 
         //Painel onde ficará a palavra digitada pelo usuário
         JPanel panelLetraPalavra = Panel(0.1);
@@ -208,13 +212,14 @@ public class AnagramaApp {
         frame.add(panelLinha);
         frame.add(panelInferior);
 
-        String[] palavras = new String[palavra.getArraydeCharLength()];  //Aqui ficará uma iteração para pegar o tamanho da Array de Char
+        ///Acho que não serve para nada kkk, depois vou da uma olhada
+        String[] palavras = new String[palavra.getArraydeCharLength()];
 
+        //Cria as linhas abaixo de cada letra, de acordo com o tamanho da palavra
         for (int i = 0; i < palavra.getArraydeCharLength(); i++) {
             JLayeredPane layeredPane = new JLayeredPane();
             layeredPane.setPreferredSize(new Dimension(110, 1));
 
-            // Crie um JLabel para a imagem de fundo
             JLabel backgroundImageLabel = new JLabel();
             ImageIcon backgroundImage = new ImageIcon("images/OutrosBotoes/Linha.png");
             backgroundImageLabel.setIcon(backgroundImage);
@@ -226,9 +231,11 @@ public class AnagramaApp {
 
         //JToggleButton
         //Criando botões de acordo com cada letra
-        palavra.getPalavraEbaralhada();
-        for (char c : palavra.getPalavraEbaralhada()) {
-
+        palavra.getPalavraEbaralhada();                    //Recebe palavra embaralhada
+        
+        for (char c : palavra.getPalavraEbaralhada()) {//iteração que passa por cada char, da array de char. 
+            
+            //recebe a char e procura o "case" relacionado a ela
             switch (c) {
                 case '-':
                     ImageIcon Hifen = new ImageIcon("images/Botões/Botão_Hífen.png");
@@ -262,8 +269,8 @@ public class AnagramaApp {
                     });
                     break;
                 case 'A':
-                    contA += 1;
-                    if (contA == 1) {
+                    contA += 1; //A cada iteração onde o char é 'A', o contador adiciona 1.
+                    if (contA == 1) { //Se a palavra tem 1 letra, executa
                         ImageIcon A = new ImageIcon("images/Botões/Botão_A.png");
                         ImageIcon A_Hover = new ImageIcon("images/Botões Hover/BotãoHover_A.png");
                         ImageIcon A_press = new ImageIcon("images/Botões Pressionados/BotãoPress_A.png");
@@ -294,7 +301,7 @@ public class AnagramaApp {
                             }
                         });
                     }
-                    if (contA == 2) {
+                    if (contA == 2) { //Se a palavra tem 2 letras, executa
                         ImageIcon A = new ImageIcon("images/Botões/Botão_A.png");
                         ImageIcon A_Hover = new ImageIcon("images/Botões Hover/BotãoHover_A.png");
                         ImageIcon A_press = new ImageIcon("images/Botões Pressionados/BotãoPress_A.png");
@@ -325,7 +332,7 @@ public class AnagramaApp {
                             }
                         });
                     }
-                    if (contA == 3) {
+                    if (contA == 3) { //Se a palavra tem 2 letras, executa
                         ImageIcon A = new ImageIcon("images/Botões/Botão_A.png");
                         ImageIcon A_Hover = new ImageIcon("images/Botões Hover/BotãoHover_A.png");
                         ImageIcon A_press = new ImageIcon("images/Botões Pressionados/BotãoPress_A.png");
@@ -356,7 +363,7 @@ public class AnagramaApp {
                             }
                         });
                     }
-                    if (contA == 4) {
+                    if (contA == 4) { //Se a palavra tem 2 letras, executa
                         ImageIcon A = new ImageIcon("images/Botões/Botão_A.png");
                         ImageIcon A_Hover = new ImageIcon("images/Botões Hover/BotãoHover_A.png");
                         ImageIcon A_press = new ImageIcon("images/Botões Pressionados/BotãoPress_A.png");
@@ -2581,6 +2588,7 @@ public class AnagramaApp {
 
         //Final
 
+        //Adiciona os JPanels na JFrame
         frame.add(panelSuperior);
         frame.add(panelLetraPalavra);
         frame.add(panelLinha);
@@ -2588,6 +2596,7 @@ public class AnagramaApp {
         frame.setVisible(true);
     }
 
+    //Método para criar a JPanel de acordo com uma porcentagem total da JFrame.
     private static JPanel Panel(double heightPercentage) {
         JPanel panel = new JPanel();
         int frameHeight = 400; // Altura total do JFrame
