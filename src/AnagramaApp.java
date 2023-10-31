@@ -1,9 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import java.io.File;
-
 
 public class AnagramaApp {
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class AnagramaApp {
         novoJogo(frame);
     }
 
-    private static void novoJogo(JFrame frame) {
+    private static void novoJogo(JFrame frame){
         // Pega a resolução da tela
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int width = gd.getDisplayMode().getWidth();
@@ -39,12 +39,24 @@ public class AnagramaApp {
         // frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         // frame.setResizable(true);
-        // teste.setIconImage(); -> selecionar ícone do programa
+
+        File file = new File("images/logo.png");
+
+        try {
+            Image icon = ImageIO.read(file);
+            frame.setIconImage(icon);
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+
 
         // Receber palavra
         BancoPalavras banco = new BancoPalavras(width, height);
         TratamentoPalavra palavra = new TratamentoPalavra(banco.getPalavraAleatoria());
         EstadoJogo estadoJogo = new EstadoJogo(palavra);
+        JButton botaoDesfazer = criarBotaoDesfazer();
+        JButton botaoDelete = criarBotaoDelete();
+        JButton botaoReiniciar = criarBotaoReiniciar();
 
         PalavraDigitadaComLinhasPanel palavraDigitadaComLinhasPanel = new PalavraDigitadaComLinhasPanel(palavra.getLength());
 
@@ -56,12 +68,32 @@ public class AnagramaApp {
                 estadoJogo.apertarBotao(posicao);
                 botoesLetrasEmbaralhadasPanel.setBotoesLetraApertados(estadoJogo.getEstadoBotoes());
                 palavraDigitadaComLinhasPanel.setPalavraDigitada(estadoJogo.getPalavraDigitada());
+
+                String palavra = estadoJogo.getTratamentoPalavra().getPalavra();
+                String palavraDigitada = estadoJogo.getPalavraDigitada();
+
+                if (palavra.length() == palavraDigitada.length()) {
+                    ImageIcon icon = null;
+                    try {
+                        Image image = ImageIO.read(file).getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+                        icon = new ImageIcon(image);
+                    } catch (java.io.IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (palavra.equals(palavraDigitada)) {
+                        botaoDesfazer.setEnabled(false);
+                        botaoDelete.setEnabled(false);
+                        JOptionPane.showMessageDialog(null, "Você acertou!!!", "Anagrama", JOptionPane.INFORMATION_MESSAGE, icon);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Você errou.", "Anagrama", JOptionPane.INFORMATION_MESSAGE, icon);
+                    }
+                }
+
             }
         });
 
-        JButton botaoDesfazer = criarBotaoDesfazer();
-        JButton botaoDelete = criarBotaoDelete();
-        JButton botaoReiniciar = criarBotaoReiniciar();
+
         JPanel botoesPanel = new JPanel();
         botoesPanel.setOpaque(false);
         botoesPanel.add(botaoDesfazer);
@@ -93,6 +125,8 @@ public class AnagramaApp {
                 novoJogo(frame);
             }
         });
+
+
 
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 

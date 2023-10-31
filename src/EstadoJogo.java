@@ -17,7 +17,7 @@ public class EstadoJogo {
         this.estadoBotoes = new boolean[palavra.getLength()];
     }
 
-    public TratamentoPalavra getPalavra() {
+    public TratamentoPalavra getTratamentoPalavra() {
         return palavra;
     }
 
