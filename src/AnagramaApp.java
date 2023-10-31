@@ -6,6 +6,8 @@ import java.awt.*;
 import java.io.File;
 
 public class AnagramaApp {
+    static Image IMAGE = null;
+    static ImageIcon IMAGE_ICON = null;
     public static void main(String[] args) {
         // Garante que a Interface Screen seja atualizada de forma segura e responsiva
         SwingUtilities.invokeLater(AnagramaApp::Screen);
@@ -42,9 +44,11 @@ public class AnagramaApp {
 
         File file = new File("images/logo.png");
 
+
         try {
-            Image icon = ImageIO.read(file);
-            frame.setIconImage(icon);
+            IMAGE = ImageIO.read(file);
+            IMAGE_ICON = new ImageIcon(IMAGE.getScaledInstance(15, 15, Image.SCALE_SMOOTH));
+            frame.setIconImage(IMAGE);
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
@@ -73,20 +77,12 @@ public class AnagramaApp {
                 String palavraDigitada = estadoJogo.getPalavraDigitada();
 
                 if (palavra.length() == palavraDigitada.length()) {
-                    ImageIcon icon = null;
-                    try {
-                        Image image = ImageIO.read(file).getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-                        icon = new ImageIcon(image);
-                    } catch (java.io.IOException e) {
-                        e.printStackTrace();
-                    }
-
                     if (palavra.equals(palavraDigitada)) {
                         botaoDesfazer.setEnabled(false);
                         botaoDelete.setEnabled(false);
-                        JOptionPane.showMessageDialog(null, "Você acertou!!!", "Anagrama", JOptionPane.INFORMATION_MESSAGE, icon);
+                        JOptionPane.showMessageDialog(null, "Você acertou!!!", "Anagrama", JOptionPane.INFORMATION_MESSAGE, IMAGE_ICON);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Você errou.", "Anagrama", JOptionPane.INFORMATION_MESSAGE, icon);
+                        JOptionPane.showMessageDialog(null, "Você errou.", "Anagrama", JOptionPane.INFORMATION_MESSAGE, IMAGE_ICON);
                     }
                 }
 
