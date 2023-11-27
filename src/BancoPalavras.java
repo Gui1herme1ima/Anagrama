@@ -24,15 +24,10 @@ public class BancoPalavras {
 
 
         //Resolução 1920x1080 suporta palavras com até X letras
-        //Ainda não está configurado, os valores estão incorretos
         if (largura == 1920 && altura == 1080) {
-            for (String animal : animais) {
-                if (animal.length() <= 100) {
                     Random random = new Random();
                     int NumPalavraAleatoria = random.nextInt(animais.length);
                     palavraAleatoria = animais[NumPalavraAleatoria];
-                }
-            }
         }
         //Resolução 1600x900 suporta palavras com até 10 letras, acima disso, a visualização fica bugada, por falta de espaço na tela.
         //Passa por cada String da Array de Animais, e seleciona somente as palavras que contém 10 ou menos letras.
